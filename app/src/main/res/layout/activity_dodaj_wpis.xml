@@ -14,7 +14,6 @@
         android:layout_marginBottom="470dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Name"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -24,7 +23,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="51dp"
         android:layout_marginBottom="470dp"
-        android:text="Button"
+        android:onClick="send"
+        android:text="Send"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName" />
 </androidx.constraintlayout.widget.ConstraintLayout>
