@@ -9,10 +9,14 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -30,9 +34,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         database = new MySQLite(this);
         setContentView(R.layout.activity_main);
-        String [] colors = {"Red","Blue","Yellow","Green","Pink", "Purple","Black", "White"};
-        target = new ArrayList<String>();
-        target.addAll(Arrays.asList(colors));
         adapter = new SimpleCursorAdapter(this, android.R.layout.simple_list_item_2,
                 database.list(),
                 new String[] {"_id", "gatunek"},
@@ -42,6 +43,17 @@ public class MainActivity extends AppCompatActivity {
 
         ListView listView = (ListView) findViewById(R.id.listView);
         listView.setAdapter((this.adapter));
+        listView.setOnItemClickListener(new
+                AdapterView.OnItemClickListener(){
+                    @Override
+                    public void onItemClick(AdapterView<?> adapter, View view, int pos, long id) {
+                        TextView name = (TextView) view.findViewById(android.R.id.text1);
+                        Animal zwierz = database.download(Integer.parseInt(name.getText().toString()));
+                        Intent intencja = new Intent(getApplicationContext(), DodajWpis.class);
+                        intencja.putExtra("element", zwierz);
+                        startActivityForResult(intencja, 2);
+                    }
+        });
     }
 
     @Override
@@ -63,6 +75,13 @@ public class MainActivity extends AppCompatActivity {
             Bundle extras = data.getExtras();
             Animal nowy = (Animal) extras.getSerializable("nowy");
             database.add(nowy);
+            adapter.changeCursor(database.list());
+            adapter.notifyDataSetChanged();
+        }
+        if (requestCode == 2 && resultCode == RESULT_OK){
+            Bundle extras = data.getExtras();
+            Animal nowy = (Animal) extras.getSerializable("nowy");
+            database.update(nowy);
             adapter.changeCursor(database.list());
             adapter.notifyDataSetChanged();
         }
