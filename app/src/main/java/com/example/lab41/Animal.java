@@ -47,6 +47,6 @@ public class Animal {
         return desc;
     }
 
-    public void set_id(int id){this._id = id};
+    public void set_id(int id){this._id = id;};
 }
 
