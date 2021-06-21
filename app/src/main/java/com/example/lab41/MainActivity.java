@@ -61,8 +61,9 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode==1 && resultCode==RESULT_OK){
             Bundle extras = data.getExtras();
-            String nowy = (String)extras.get("wpis");
-            target.add(nowy);
+            Animal nowy = (Animal) extras.getSerializable("nowy");
+            database.add(nowy);
+            adapter.changeCursor(database.list());
             adapter.notifyDataSetChanged();
         }
 

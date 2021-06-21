@@ -1,6 +1,8 @@
 package com.example.lab41;
 
-public class Animal {
+import java.io.Serializable;
+
+public class Animal implements Serializable {
 
     private int _id;
     private String gatunek;
