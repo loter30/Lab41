@@ -16,6 +16,7 @@ public class MySQLite extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase database){
+
         String DATABASE_CREATE = "create table animals " +
                 "(_id integer primary key autoincrement," +
                 "gatunek text not null," +
@@ -35,10 +36,10 @@ public class MySQLite extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put("specie", animal.getSpecie());
-        values.put("color", animal.getColor());
-        values.put("size", animal.getSize());
-        values.put("desc", animal.getDesc());
+        values.put("gatunek", animal.getGatunek());
+        values.put("kolor", animal.getKolor());
+        values.put("wielkosc", animal.getWielkosc());
+        values.put("opis", animal.getOpis());
         db.insert("animals", null, values);
         db.close();
     }
@@ -52,10 +53,10 @@ public class MySQLite extends SQLiteOpenHelper {
     public int update(Animal animal){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put("specie", animal.getSpecie());
-        values.put("color", animal.getColor());
-        values.put("size", animal.getSize());
-        values.put("desc", animal.getDesc());
+        values.put("gatunek", animal.getGatunek());
+        values.put("kolor", animal.getKolor());
+        values.put("wielkosc", animal.getWielkosc());
+        values.put("opis", animal.getOpis());
         int i = db.update("animals", values, "_id = ?", new String[]{String.valueOf(animal.get_id())});
         db.close();
         return i;
@@ -64,7 +65,7 @@ public class MySQLite extends SQLiteOpenHelper {
     public Animal download(int id){
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor cursor = db.query("animals", new String[] { "_id", "specie", "color", "size", "desc" }, "_id = ?",
+        Cursor cursor = db.query("animals", new String[] { "_id", "gatunek", "kolor", "wielkosc", "opis" }, "_id = ?",
                         new String[] {String.valueOf(id) },
                         null, // e. group by
                         null, // f. having

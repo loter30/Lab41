@@ -3,27 +3,28 @@ package com.example.lab41;
 public class Animal {
 
     private int _id;
-    private String specie;
-    private String color;
-    private float size;
-    private String desc;
+    private String gatunek;
+    private String kolor;
+    private float wielkosc;
+    private String opis;
 
     public Animal(){}
 
-    public Animal(String specie, String color, float size, String desc) {
-        this.specie = specie;
-        this.color = color;
-        this.size = size;
-        this.desc = desc;
+    public Animal(String gatunek, String kolor, float wielkosc, String opis) {
+        this.gatunek = gatunek;
+        this.kolor = kolor;
+        this.wielkosc = wielkosc;
+        this.opis = opis;
     }
 
     @Override
     public String toString() {
         return "Animal{" +
                 "_id=" + _id +
-                ", specie='" + specie + '\'' +
-                ", color='" + color + '\'' +
-                ", size=" + size +
+                ", gatunek='" + gatunek + '\'' +
+                ", kolor='" + kolor + '\'' +
+                ", wielkosc=" + wielkosc +
+                ", opis='" + opis + '\'' +
                 '}';
     }
 
@@ -31,22 +32,24 @@ public class Animal {
         return _id;
     }
 
-    public String getSpecie() {
-        return specie;
+    public String getGatunek() {
+        return gatunek;
     }
 
-    public String getColor() {
-        return color;
+    public String getKolor() {
+        return kolor;
     }
 
-    public float getSize() {
-        return size;
+    public float getWielkosc() {
+        return wielkosc;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getOpis() {
+        return opis;
     }
 
-    public void set_id(int id){this._id = id;};
+    public void set_id(int _id) {
+        this._id = _id;
+    }
 }
 

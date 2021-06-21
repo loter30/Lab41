@@ -4,6 +4,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -11,6 +12,7 @@ import android.view.MenuItem;
 import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -20,16 +22,24 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private List<String> target;
-    private ArrayAdapter adapter;
+    private SimpleCursorAdapter adapter;
+    private MySQLite database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        database = new MySQLite(this);
         setContentView(R.layout.activity_main);
         String [] colors = {"Red","Blue","Yellow","Green","Pink", "Purple","Black", "White"};
         target = new ArrayList<String>();
         target.addAll(Arrays.asList(colors));
-        adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1,this.target);
+        adapter = new SimpleCursorAdapter(this, android.R.layout.simple_list_item_2,
+                database.list(),
+                new String[] {"_id", "gatunek"},
+                new int[] {android.R.id.text1,
+                        android.R.id.text2},SimpleCursorAdapter.IGNORE_ITEM_VIEW_TYPE
+        );
+
         ListView listView = (ListView) findViewById(R.id.listView);
         listView.setAdapter((this.adapter));
     }
